@@ -9,6 +9,7 @@ import Navbar from "../Components/Navbar";
 
 
 
+
 const Create = () => {
 
   const[img,setImg]=useState("")
@@ -130,11 +131,14 @@ const Create = () => {
   return (
     <div>
      <Navbar/>
-    <div className="h-[100vh] w-[40vw] ">
+     
+    <div className="h-[0vh] w-[40vw] ">
+    
       {/* <!-- component --> */}
       <Sidebar/>
 
-<div className="bg-grey-lighter min-h-screen flex flex-col w-[60vw]  pl-80 ml-80 pb-64">
+<div className="bg-grey-lighter min-h-screen flex flex-col w-[60vw]  pl-80 ml-80 pb-64 relative ">
+
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 ">
                 <div className="bg-cyan-700 px-6 py-8 rounded text-black w-full shadow-2xl shadow-gray-800 " >
                     <h1 className="mb-8 text-3xl text-center">Create a Post</h1>
@@ -153,6 +157,7 @@ const Create = () => {
                    onChange={(e)=>setFile(e.target.files[0])
                    }/>
 
+
 <div className="flex place-content-center">
 {/* <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium text-2xl  rounded-lg  px-5 py-2.5 text-center me-2 mb-2" >Get Notished</button> */}
 
@@ -161,24 +166,13 @@ const Create = () => {
 <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
 <span className="relative text-black group-hover:text-white">Post</span>
 </a>
+
 </div>
 
 
 
-
                     
-<ul className="circles">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
+
                 </div>
 
                 

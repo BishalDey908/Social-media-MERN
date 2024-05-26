@@ -15,7 +15,7 @@ const Search = () => {
     const searchQuerry = e.target.value
     axios.post("http://localhost:3000/api/search",{searchQuerry})
     .then((e)=>{
-      console.log(e.data)
+      // console.log(e.data)
       setUserData(e.data)
       if(e.data === "No such user exists!"){
         alert(e.data);
@@ -24,8 +24,13 @@ const Search = () => {
     .catch((err)=>{
       console.log("error in search",err)
     })
-    console.log(searchQuerry)
+    // console.log(searchQuerry)
   }
+
+
+  
+   
+    
 
   
 

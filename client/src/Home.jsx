@@ -19,6 +19,7 @@ import Modal from './Components/Modal'
 
 
 
+
 const Home = () => {
   const [postData,setPostData] = useState([])
   const [likes,setLikes] = useState(postData.likes)
@@ -30,11 +31,13 @@ const Home = () => {
   const[seeStory,setSeeStory] = useState("")
   
   
+  
   const handleToggle = (img) =>{
     setToggle(!toggle)
     setSeeStory(img)
     console.log(seeStory)
 }
+
 
 
 
@@ -128,9 +131,8 @@ const Home = () => {
     })
   }
   
-
   
-
+  
   
 
   return (
@@ -208,6 +210,9 @@ const Home = () => {
     onClick={()=>handleToggle(robot)}
     />
 </div>
+    
+
+
 
 
 
@@ -215,23 +220,26 @@ const Home = () => {
         
         
       </div>
-        <div className='fixed  right-0 top-0 pt-32  h-[100%] w-80  text-black mr-4'>
+      {/* <img src={background} alt="" className='  h-96 ml-2 mb-10 ' /> */}
+      
+        <div className='fixed  right-0 top-0 pt-32  h-[100%]  w-80 text-black mr-4 z-80'>
         
           <div className='flex flex-col '>
           <div className=' rounded-2xl fixed h-2/4 w-44'>
           
         </div>
         
-        <div className='bg-white   w-80 relative  rounded-2xl  shadow-2xl shadow-slate-600'>
+        <div className='bg-white   w-80 relative  rounded-2xl  shadow-2xl shadow-slate-600 z-50'>
         <h1 className='text-xl mt-5 flex place-content-center text-gray-600'>ONLINE</h1>
           <div className='my-4 ml-4 mx-2 h-80 overflow-y-auto'>
           <OnlineCard/>
           </div>
-
           </div>
-          
-          <div className='bg-pink-600 rounded-2xl h-80 mt-6 text-white pt-12'> 
+         
             
+          
+          
+          <div className='bg-pink-600 rounded-2xl mt-6 h-80  text-white pt-12 relative'> 
             <div className='mx-4 '>
             <div className='text-center'>
             <h1 className='text-2xl font-bold '>Birthdays</h1>
@@ -248,8 +256,10 @@ const Home = () => {
           </div>
           </div>
 
-
         
+        
+
+
         
        
 
@@ -264,11 +274,13 @@ const Home = () => {
         <p>© 2024 NOSEBOOK FROM BISHAL</p>
         </div>
         </div>
+      </section>
+
+
+      
 
         
-      </section>
-        
-      <div className='h-44 w-[500px] bg-white shadow-2xl shadow-gray-700 flex ml-[350px] my-4 rounded-3xl'>
+      <div className='h-44 w-[500px] bg-white shadow-2xl shadow-gray-700 flex ml-[350px] my-4  rounded-3xl'>
       <div className=''>
       <div className='flex mx-6 my-6 gap-2'>
         <img className='w-[38px] h-[38px] mr-2 rounded-full' src="https://cdn-icons-png.flaticon.com/128/3177/3177440.png" alt="" />

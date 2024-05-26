@@ -13,6 +13,7 @@ const multer = require ("multer")
 const path = require("path")
 const { request } = require("http")
 const likemodel = require("./likeModel")
+const notificationModel = require("./NotificationModel")
 
 
 
@@ -178,14 +179,14 @@ app.get("/api/loginuser",(req,res)=>{
 app.post("/api/search",(req,res)=>{
   const {searchQuerry} = req.body
   // const username = searchQuerry
-  console.log(searchQuerry)
+  // console.log(searchQuerry)
     const regex = new RegExp(searchQuerry, 'i');
 
   if(searchQuerry){
     userRegModel.find({username:regex})
     .then((e)=>{
       if(e){
-        console.log("reasult",e)
+        // console.log("reasult",e)
         return res.json(e)
       }else{
         console.log("no result")
@@ -194,11 +195,11 @@ app.post("/api/search",(req,res)=>{
     })
     .catch((err)=>console.log("error in searching..",err))
   }
-  // else{
+  // if(searchQuerry===undefined){
   //   userRegModel.find({})
   //   .then((e)=>{
   //     if(e){
-  //       console.log(e)
+  //       // console.log(e)
   //       return res.json(e)
   //     }else{
   //       return res.send("No such user exists!")
@@ -209,6 +210,44 @@ app.post("/api/search",(req,res)=>{
 
   
 })
+
+// -----------------------------------------------------send friend request
+
+app.post("/api/sendfriendrequest",(req,res)=>{
+  const {receaveFR,sendFR} = req.body
+  console.log(receaveFR,sendFR)
+  const message = `${sendFR} send you a friend request`
+  console.log(message)
+  notificationModel.create({sender:sendFR,receaver:receaveFR,message})
+  .then((e)=>{
+    console.log("notification created",e)
+  })
+  .catch((err)=>{
+    console.log("notification not created",err)
+  })
+})
+// -----------------------------------------------------send friend request
+
+
+//-----------------------------------------------------show friend requests
+
+app.post("/api/showfriendrequests",(req,res)=>{
+  const {username} = req.body
+  // console.log("from notification",username)
+  notificationModel.find({receaver:username})
+  .then((e)=>{
+    res.json(e)
+    // console.log(e)
+    // console.log("data send")
+  })
+  .catch((err)=>{
+    console.log("error in sending data",err)
+  })
+})
+
+
+//-----------------------------------------------------show friend requests
+
 
 // -------------------------------------------Post creation
 
