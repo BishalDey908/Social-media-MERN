@@ -21,7 +21,7 @@ const friendRequestAcceptModel = require("./firendApprovedModel")
 PORT= 3000
 app.use(bodyParser.json())
 app.use(cors({
-  origin: ["https://social-media-mern-frontend.vercel.app"],
+  origin: [""],
   methods: ["GET", "POST"],
   credentials: true,
 }))
