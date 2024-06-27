@@ -56,7 +56,7 @@ const Home = () => {
 
 
   useEffect(()=>{
-    axios.get("http://localhost:3000/api/showPost")
+    axios.get("https://social-media-mern-three.vercel.app/api/showPost")
     .then((e)=>{
       // console.log(e.data)
       setPostData(e.data)
