@@ -21,7 +21,7 @@ const friendRequestAcceptModel = require("./firendApprovedModel")
 PORT= 3000
 app.use(bodyParser.json())
 app.use(cors({
-  origin: [""],
+  origin: ["https://glistening-bubblegum-37ccd5.netlify.app"],
   methods: ["GET", "POST"],
   credentials: true,
 }))
