@@ -396,7 +396,7 @@ const Home = () => {
     <div className='flex place-content-center'>
     <div className="flex flex-col">
     <img src={``} alt="" srcset="" />
-    <img src={`${elem.postImg}`} alt="" />
+    <img src={`../public/images/${elem.postImg}`} alt="" />
     <span className="text-sm font-semibold antialiased block leading-tight my-2 mx-2 text-xl text-gray-600" >{elem.postName}</span>
     </div>
     </div>
