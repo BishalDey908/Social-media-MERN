@@ -16,8 +16,9 @@ const ProfileCard = (prop) => {
         const sendFR = sendFriendUser
 
         axios.post("http://localhost:3000/api/sendfriendrequest",{receaveFR,sendFR})
-        .then(()=>{
-            console.log("send friend request success")
+        .then((e)=>{
+            if(e.data==="success")
+            alert("send friend request success")
         })
         .catch((err)=>{
             console.log(err)

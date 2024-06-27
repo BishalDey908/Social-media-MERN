@@ -13,19 +13,21 @@ const Profile = () => {
   const [postnumber,setPostNumber] =useState(0)
   const [toggle,setToggle]=useState(false)
   const [userBio,setUserBio]=useState("")
+  const [friendCount,setFriendCount]=useState("")
+  const[friendList,setFriendList]=useState([])
 
-  const handleBio = () =>{
-    console.log(userBio)
-    axios.post("http://localhost:3000/api/updateBio",{username,userBio})
-    .then((e)=>{
-      console.log("update Bio",e.data)
-      window.location.reload()
-    })
+  // const handleBio = () =>{
+  //   console.log(userBio)
+  //   axios.post("http://localhost:3000/api/updateBio",{username,userBio})
+  //   .then((e)=>{
+  //     console.log("update Bio",e.data)
+  //     window.location.reload()
+  //   })
     
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+  //   .catch((err)=>{
+  //     console.log(err)
+  //   })
+  // }
 
   useEffect(()=>{
     setUsername(localStorage.getItem('username'))
@@ -37,10 +39,10 @@ const Profile = () => {
     })
     
     .catch((err)=>{
-      // console.log(err)
+      
     })
     
-  },[username,bio])
+  },[username])
 
   useEffect(()=>{
     axios.post("http://localhost:3000/api/userpost",{username})
@@ -53,12 +55,24 @@ const Profile = () => {
       console.log(err)
     })
   },[username,post])
+
+  useEffect(()=>{
+    axios.post("http://localhost:3000/api/showFriends",{username})
+    .then((data)=>{
+      const resData = data.data
+      // console.log(resData)
+      setFriendCount(resData)
+    })
+    .catch((err)=>{
+      console.log("Error to catch friends",err)
+    })
+  },[username,post])
   
   const sendmessaage = (message) =>{
     alert(message)
   }
 
-  const  handleClick = (post) =>{
+  const  SetProfilePic = (post) =>{
     const pic = post.postImg
     const user=username 
     console.log(user)
@@ -87,9 +101,55 @@ const Profile = () => {
       })
   }
 
+  // const showFriends = () =>{
+    
+  // }
+  
+
   const handleButton = () =>{
     setToggle(!toggle)
+    const username = localStorage.getItem("username")
+    console.log(username)
+    axios.post("http://localhost:3000/api/showFriendList",{username})
+      .then((e)=>{
+        console.log(e.data)
+        setFriendList(e.data)
+        // console.log(friendList)
+      })
+      .catch((err)=>{
+        console.log("error in fetching friends",err)
+      })
   }
+
+  const handleUnfriend = (item) =>{
+    const sender = item.senderName
+    console.log(sender)
+    axios.post("http://localhost:3000/api/unFriend",{sender})
+      .then((e)=>{
+        if(e.data==="success")
+        alert("unfriend")
+      window.location.reload()
+      })
+      .catch((err)=>{
+        console.log("error in fetching friends",err)
+      })
+  }
+
+  // const data = () =>{
+
+  //   let username = localStorage.getItem("username")
+    
+  //   axios.post("http://localhost:3000/api/showFriendList",{username})
+  //       .then((e)=>{
+  //         // console.log(e.data)
+  //         setFriendList(e.data)
+  //         // console.log(friendList)
+  //       })
+  //       .catch((err)=>{
+  //         console.log("error in fetching friends",err)
+  //       })
+  // }
+  // data()
 
 
   return (
@@ -99,41 +159,48 @@ const Profile = () => {
      <div className='pt-10'>
       
 
-      {
-    toggle && (
-<div id="default-modal" tabindex="-1" aria-hidden="true" className=" overflow-y-auto overflow-x-hidden fixed flex my-auto   z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm ">
-    <div className="relative p-4 w-full max-w-2xl max-h-full">
-        {/* <!-- Modal content --> */}
-        <div className="relative bg-white  shadow dark:bg-gray-700">
-            {/* <!-- Modal header --> */}
-            <div className="flex items-center rounded-lg justify-between p-4 md:p-5  dark:border-gray-600">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Edit Bio
-                </h3>
-                <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900  text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal" onClick={handleButton}>
-                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor"  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
-            </div>
-            {/* <!-- Modal body --> */}
-            <div className='px-8 h-[305px] py-2 shadow-2xl shadow-gray-600'>
-            <div className="h-full w-full flex flex-col">
-            {/* <input type=""  /> */}
-            <textarea name="" id="" cols="30" rows="180" className='bg-slate-500 text-4xl' onChange={(e)=>setUserBio(e.target.value)}></textarea>
-            <div className='my-4 mx-auto'>
-            <button className='bg-yellow-600 px-4 py-2 ' onClick={handleBio}>Submit</button>
-            </div>
-            </div>
-            </div>
-            {/* <!-- Modal footer --> */}
-        </div>
-    </div>
-</div>
+      
 
-    )
-}
+{
+        toggle && 
+      <div >
+    <div  className="fixed z-10 inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+      <div className="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4 overflow-y-auto" >
+        
+        <div className="px-6 py-4">
+          <h3 className="text-lg leading-6 font-medium text-gray-900"> Notification </h3>
+        </div>
+        <div className=' h-96 overflow-y-auto'>
+        <hr />
+          {/* checktypeArray(friendList) && */}
+        {
+          friendList.map((item, index) => (
+            <div key={index} >
+            <div className='mx-10 my-4 flex justify-between '>
+            <div className='flex gap-2'>
+              <img className='h-14 w-14 my-auto rounded-full' src={`../public/images/${item.profilepic}`} alt=""  />
+              <h1 className='text-2xl my-auto'>{item.senderName}</h1>
+            </div>
+              <div className='my-auto'>
+              <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={()=>handleUnfriend(item)}>Unfriend</button>
+              </div>
+            </div>
+            <hr className='mx-10'/>
+            </div>
+            
+          ))
+        }
+        </div>
+        <div className="bg-gray-50 px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
+          <button  type="button" onClick={handleButton}> close </button>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+
+      }
 
 
       <div className='h-[100%] text-white mt-24'>
@@ -149,12 +216,12 @@ const Profile = () => {
           <h1 className='text-3xl text-gray-600'>{username}</h1>
           <RiVerifiedBadgeFill className='text-3xl text-blue-800'/>
           </div>
-          <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleButton}>Edit Bio</button>
+          {/* <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleButton}>Edit Bio</button> */}
           </div>
           <div className='flex gap-5 my-2 text-gray-600'>
             <p>Posts {postnumber}</p>
             <p>Followers 155</p>
-            <p>Following  74</p>
+            <p onClick={handleButton}>Friends {friendCount}</p>
           </div >
             <h2 className='text-gray-600'>{bio}</h2>
           </div>
@@ -181,7 +248,7 @@ const Profile = () => {
 <span className="relative text-black group-hover:text-white">Delete Post</span>
 </a>
 
-<a href="#_" className="relative inline-block px-4 py-3 h-12 text-center text-xl w-30 font-medium group" onClick={()=>handleClick(post)}>
+<a href="#_" className="relative inline-block px-4 py-3 h-12 text-center text-xl w-30 font-medium group" onClick={()=>SetProfilePic(post)}>
 <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
 <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
 <span className="relative text-black group-hover:text-white">Set ProfilePic</span>

@@ -300,7 +300,7 @@ const Home = () => {
           {/* FaSmile */}
 
           <div className='flex'>
-          <FaSmile className='text-4xl text-yellow-400 '/>
+          <FaSmile className='text-4xl text-yellow-400 cursor-pointer'/>
           <h1 className='mx-2 my-1.5 text-black'>Reaction</h1>
           </div>
         </div>
@@ -370,7 +370,7 @@ const Home = () => {
         <span className=" font-semibold antialiased block leading-tight text-xl text-gray-600" >{elem.sharedUser} </span>
         <span className="text-xl font-semibold antialiased block leading-tight text-blue-600">{elem.sharedUser ? <MdVerified className='text-lime-200'/>: "" } </span>
       </div>
-      <span className="text-white text-xs block mt-1">{elem.sharedTime}</span>
+      <span className="text-gray-600 text-xs block mt-1">{elem.sharedTime}</span>
       </div>
       </div> 
 

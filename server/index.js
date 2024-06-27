@@ -14,6 +14,7 @@ const path = require("path")
 const { request } = require("http")
 const likemodel = require("./likeModel")
 const notificationModel = require("./NotificationModel")
+const friendRequestAcceptModel = require("./firendApprovedModel")
 
 
 
@@ -218,15 +219,38 @@ app.post("/api/sendfriendrequest",(req,res)=>{
   console.log(receaveFR,sendFR)
   const message = `${sendFR} send you a friend request`
   console.log(message)
-  notificationModel.create({sender:sendFR,receaver:receaveFR,message})
+  userRegModel.findOne({username:sendFR})
   .then((e)=>{
-    console.log("notification created",e)
+    console.log("profilepic",e.profilePic)
+    const profilepic = e.profilePic
+    notificationModel.create({sender:sendFR,receaver:receaveFR,message,profilepic})
+    .then((e)=>{
+      console.log("notification created",e)
+      res.json("success")
+    })
+    .catch((err)=>{
+      console.log("notification not created",err)
+    })
   })
   .catch((err)=>{
-    console.log("notification not created",err)
+    console.log("error in sending friend request",err)
   })
+  
 })
 // -----------------------------------------------------send friend request
+
+//-----------------------------------------------------delete friend request
+app.post("/api/deletefriendrequests",(req,res)=>{
+  const {sender,receaver} = req.body
+     notificationModel.findOneAndDelete({sender,receaver})
+     .then(()=>{
+      console.log("friend request deleted")
+     })
+     .catch((err)=>{
+      console.log("friend request not deleted",err)
+     })
+})
+//-----------------------------------------------------delete friend request
 
 
 //-----------------------------------------------------show friend requests
@@ -244,10 +268,22 @@ app.post("/api/showfriendrequests",(req,res)=>{
     console.log("error in sending data",err)
   })
 })
-
-
 //-----------------------------------------------------show friend requests
 
+//-----------------------------------------------------display friends
+app.post("/api/displayfriends",async(req,res)=>{
+  const {username} = req.body
+  console.log(username)
+  
+    friendRequestAcceptModel.find({receaverName:username})
+    .then((e)=>{
+    console.log(e.data)
+    res.json(e)
+    })
+    .catch((err)=>{
+    console.log("error in displaying friends",err)
+    })
+})
 
 // -------------------------------------------Post creation
 
@@ -416,18 +452,18 @@ app.post('/api/:postId/like', async (req, res) => {
 // });
 
 //----------------------------------update user bio
-app.post('/api/updateBio',(req,res)=> {  
-  const {username,userBio} = req.body
-  console.log(req.body)
-  userRegModel.findOneAndUpdate({username:username,bio:userBio})
-  .then((posts)=>{
-    console.log("Bio updated",posts)
-    res.send(posts)
-  })
-  .catch(()=>{
-    console.log('error in getting posts')
-  })
-})
+// app.post('/api/updateBio',(req,res)=> {  
+//   const {username,userBio} = req.body
+//   console.log(req.body)
+//   userRegModel.findOneAndUpdate({username:username,bio:userBio})
+//   .then((posts)=>{
+//     console.log("Bio updated",posts)
+//     res.send(posts)
+//   })
+//   .catch(()=>{
+//     console.log('error in getting posts')
+//   })
+// })
 
 //---------------------------------get user post
 app.post('/api/userpost/',(req,res)=> {  
@@ -515,6 +551,53 @@ app.post("/api/showsaved", (req, res) => {
   })
 })
 
+// ----------------------------------------------------------friend request accept route
+app.post("/api/accept",async(req,res)=>{
+  const{sender,receaver,profilepic} = req.body
+  console.log(receaver)
+  try{
+  await friendRequestAcceptModel.create({senderName:sender,receaverName:receaver,profilepic})
+  res.send("success")
+  console.log("accept request success")
+  await notificationModel.findOneAndDelete({sender,receaver})
+    // res.send("success")
+    console.log("accept request deleted")
+  }catch(err){
+    console.log("accept request faield",err)
+  }
+  
+})
+
+// ----------------------------------------------------------unfriend
+app.post("/api/unFriend",async(req,res)=>{
+  const{sender} = req.body
+  console.log(sender)
+  try{
+  await friendRequestAcceptModel.findOneAndDelete({senderName:sender})
+  res.send("success")
+    console.log("accept request deleted")
+  }catch(err){
+    console.log("accept request faield",err)
+  }
+})
+
+// ----------------------------------------------------------show friend
+app.post("/api/showFriends",async(req,res)=>{
+  const{username}=req.body
+  // console.log(username)
+  const response = await friendRequestAcceptModel.find({receaverName:username})
+  const friendLength = response.length
+  // console.log(length)
+  res.json(friendLength)
+})
+
+// ------------------------------------------------------------show friend list
+app.post("/api/showFriendList",async(req,res)=>{
+  const{username}=req.body
+  // console.log(username)
+  const response = await friendRequestAcceptModel.find({receaverName:username})
+  res.json(response)
+})
 
 
 

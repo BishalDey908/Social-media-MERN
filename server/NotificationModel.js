@@ -9,10 +9,16 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    profilepic:{
+        type:String,
+        required: true
+    },
     message:{
         type:String,
         required: true
     }
+},{
+    timestamps: true
 })
 
 const notificationModel = mongoose.model("notification",notificationSchema)
