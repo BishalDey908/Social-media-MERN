@@ -46,7 +46,7 @@ const Sidebar = () => {
 
     const handleLogout = () =>{
         const isLoggedIn = false
-        axios.post("https://social-media-mern-three.vercel.app/api/logout",{username,isLoggedIn})
+        axios.post("https://social-media-mern-1usj.onrender.com/api/logout",{username,isLoggedIn})
         .then(()=>{
             console.log("succes to change isLoggedIn");
             
@@ -65,7 +65,7 @@ const Sidebar = () => {
         setUsername(jwtDecode(cookies.token).username)
         setUseremail(jwtDecode(cookies.token).email)
         // setUserProfilePic(jwtDecode(cookies.token).profilepic)
-        axios.post("https://social-media-mern-three.vercel.app/api/userPic",{username})
+        axios.post("https://social-media-mern-1usj.onrender.com/api/userPic",{username})
         .then((e)=>{
       console.log("this is for profilepic",e.data)
       setUserProfilePic(e.data.profilePic)

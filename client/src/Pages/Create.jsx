@@ -34,7 +34,7 @@ const Create = () => {
   const savepost = async() =>{
     const formdata = new FormData()
     formdata.append("file",file)
-    await axios.post("https://social-media-mern-three.vercel.app/api/savePostPic",formdata)
+    await axios.post("https://social-media-mern-1usj.onrender.com/api/savePostPic",formdata)
     .then(()=>{
       console.log("data created success")
     })
@@ -45,12 +45,12 @@ const Create = () => {
 
   //----------------------------------save user pic
   const saveuserpic = async(postname) =>{
-    await axios.post("https://social-media-mern-three.vercel.app/api/userPic",{username})
+    await axios.post("https://social-media-mern-1usj.onrender.com/api/userPic",{username})
     .then((e)=>{
       console.log("user profile picture found",e.data.profilePic)
       console.log("postname",postname)
       const userpic = e.data.profilePic
-      axios.post("https://social-media-mern-three.vercel.app/api/saveuserpic",{userpic,postname})
+      axios.post("https://social-media-mern-1usj.onrender.com/api/saveuserpic",{userpic,postname})
       .then(()=>{
         console.log("Profile Picture has been saved for this Post.")
       })
@@ -72,7 +72,7 @@ const Create = () => {
     //----------------------------------------create pic
     const date = new Date()
     const modDate = date.toLocaleString()
-    axios.post("https://social-media-mern-three.vercel.app/api/createPost",{postname,username,modDate,isVideo})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/createPost",{postname,username,modDate,isVideo})
     .then(()=>{
       alert("POST CREATED SUCCESS")
       // console.log(cookies)
@@ -97,7 +97,7 @@ const Create = () => {
     //----------------------------------------create pic
     const date = new Date()
     const modDate = date.toLocaleString()
-    axios.post("https://social-media-mern-three.vercel.app/api/createPost",{postname,username,modDate,isVideo})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/createPost",{postname,username,modDate,isVideo})
     .then(()=>{
       alert("POST CREATED SUCCESS")
       // console.log(cookies)
@@ -114,7 +114,7 @@ const Create = () => {
 
   useEffect(()=>{
     if(username){
-      axios.post("https://social-media-mern-three.vercel.app/api/userPic",{username})
+      axios.post("https://social-media-mern-1usj.onrender.com/api/userPic",{username})
      .then((e)=>{
        setUserPic(e.data)
        console.log("Send username",userPic)

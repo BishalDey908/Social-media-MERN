@@ -22,7 +22,7 @@ const Navbar = () => {
         setUsername(jwtDecode(cookies.token).username)
         setUseremail(jwtDecode(cookies.token).email)
         // setUserProfilePic(jwtDecode(cookies.token).profilepic)
-        axios.post("https://social-media-mern-three.vercel.app/api/userPic",{username})
+        axios.post("https://social-media-mern-1usj.onrender.com/api/userPic",{username})
         .then((e)=>{
       console.log("this is for profilepic",e.data)
       setUserProfilePic(e.data.profilePic)
@@ -39,7 +39,7 @@ const Navbar = () => {
     const handleNotification = () =>{
      setNotification(!notification)
      localStorage.setItem("notification",notification)
-     axios.post("https://social-media-mern-three.vercel.app/api/showfriendrequests",{username})
+     axios.post("https://social-media-mern-1usj.onrender.com/api/showfriendrequests",{username})
       .then((e)=>{
         // console.log("this is for friend requests",e.data)
         setNotiFiData(e.data)
@@ -56,12 +56,12 @@ const Navbar = () => {
       const {sender,receaver,profilepic}=item
       console.log(sender,receaver,profilepic)
       try{
-        const response = await axios.post("https://social-media-mern-three.vercel.app/api/accept",{sender,receaver,profilepic})
+        const response = await axios.post("https://social-media-mern-1usj.onrender.com/api/accept",{sender,receaver,profilepic})
         if(response.data==="success"){
           alert("Friend request accepted")
           const sender =  item.sender
       const receaver =  item.receaver
-      axios.post("https://social-media-mern-three.vercel.app/api/deletefriendrequests",{sender,receaver})
+      axios.post("https://social-media-mern-1usj.onrender.com/api/deletefriendrequests",{sender,receaver})
     .then(()=>{
       console.log("this friend request deleted")
     })
@@ -78,7 +78,7 @@ const Navbar = () => {
     const handledelete = (item) =>{
       const sender =  item.sender
       const receaver =  item.receaver
-      axios.post("https://social-media-mern-three.vercel.app/api/deletefriendrequests",{sender,receaver})
+      axios.post("https://social-media-mern-1usj.onrender.com/api/deletefriendrequests",{sender,receaver})
     .then(()=>{
       console.log("this friend request deleted")
     })
@@ -88,7 +88,7 @@ const Navbar = () => {
     }
     
     const showfriendrequests = () =>{
-      axios.post("https://social-media-mern-three.vercel.app/api/showfriendrequests",{username})
+      axios.post("https://social-media-mern-1usj.onrender.com/api/showfriendrequests",{username})
       .then((e)=>{
         // console.log("this is for friend requests",e.data)
         setNotiFiData(e.data)

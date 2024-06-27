@@ -31,7 +31,7 @@ const Profile = () => {
 
   useEffect(()=>{
     setUsername(localStorage.getItem('username'))
-    axios.post("https://social-media-mern-three.vercel.app/api/userPic",{username})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/userPic",{username})
     .then((e)=>{
       console.log("this is for profilepic",e.data)
       setUserpic(e.data.profilePic)
@@ -45,7 +45,7 @@ const Profile = () => {
   },[username])
 
   useEffect(()=>{
-    axios.post("https://social-media-mern-three.vercel.app/api/userpost",{username})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/userpost",{username})
     .then((e)=>{
       // console.log("Success to get user post",e.data)
       setPost(e.data)
@@ -57,7 +57,7 @@ const Profile = () => {
   },[username,post])
 
   useEffect(()=>{
-    axios.post("https://social-media-mern-three.vercel.app/api/showFriends",{username})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/showFriends",{username})
     .then((data)=>{
       const resData = data.data
       // console.log(resData)
@@ -77,7 +77,7 @@ const Profile = () => {
     const user=username 
     console.log(user)
     
-      axios.post("https://social-media-mern-three.vercel.app/setuserpic",{pic,user})
+      axios.post("https://social-media-mern-1usj.onrender.com/setuserpic",{pic,user})
       .then((e)=>{
         console.log("Userpic send success")
         sendmessaage(e.data)
@@ -91,7 +91,7 @@ const Profile = () => {
   const handleDelete = (post) =>{
     const postName = post.postName;
     console.log(postName)
-    axios.post("https://social-media-mern-three.vercel.app/api/deletePost",{postName,username})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/deletePost",{postName,username})
       .then((e)=>{
         console.log("postId send success",e)
         // alert("post deleted")
@@ -110,7 +110,7 @@ const Profile = () => {
     setToggle(!toggle)
     const username = localStorage.getItem("username")
     console.log(username)
-    axios.post("https://social-media-mern-three.vercel.app/api/showFriendList",{username})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/showFriendList",{username})
       .then((e)=>{
         console.log(e.data)
         setFriendList(e.data)
@@ -124,7 +124,7 @@ const Profile = () => {
   const handleUnfriend = (item) =>{
     const sender = item.senderName
     console.log(sender)
-    axios.post("https://social-media-mern-three.vercel.app/api/unFriend",{sender})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/unFriend",{sender})
       .then((e)=>{
         if(e.data==="success")
         alert("unfriend")

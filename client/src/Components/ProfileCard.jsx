@@ -15,7 +15,7 @@ const ProfileCard = (prop) => {
         const receaveFR = data.userdata.username
         const sendFR = sendFriendUser
 
-        axios.post("https://social-media-mern-three.vercel.app/api/sendfriendrequest",{receaveFR,sendFR})
+        axios.post("https://social-media-mern-1usj.onrender.com/api/sendfriendrequest",{receaveFR,sendFR})
         .then((e)=>{
             if(e.data==="success")
             alert("send friend request success")

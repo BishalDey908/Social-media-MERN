@@ -16,7 +16,7 @@ const Login = () => {
     const handleSubmit = (e) =>{
         e.preventDefault()
         const isLoggedIn = true
-        axios.post("https://social-media-mern-three.vercel.app/api/login",{username,password,isLoggedIn})
+        axios.post("https://social-media-mern-1usj.onrender.com/api/login",{username,password,isLoggedIn})
         .then((e)=>{
             console.log(e.data);
             if(e.data === "Login successfully"){

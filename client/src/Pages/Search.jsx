@@ -13,7 +13,7 @@ const Search = () => {
 
   const handleButton = (e) =>{
     const searchQuerry = e.target.value
-    axios.post("https://social-media-mern-three.vercel.app/api/search",{searchQuerry})
+    axios.post("https://social-media-mern-1usj.onrender.com/api/search",{searchQuerry})
     .then((e)=>{
       // console.log(e.data)
       setUserData(e.data)
