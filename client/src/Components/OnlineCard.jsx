@@ -6,7 +6,7 @@ const OnlineCard = () => {
     const [loginUsers,setLoginUsers] = useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3000/api/loginuser")
+        axios.get("https://social-media-mern-three.vercel.app/api/loginuser")
         .then((loginuser)=>{
             setLoginUsers(loginuser.data)
         })

@@ -17,7 +17,7 @@ const Comment = () => {
         const messageInput = document.getElementById("message-input");
         console.log("comment post ==> ",comment, username, postId)
 
-        axios.post("http://localhost:3000/api/addcomment",{username,postId,comment,modDate})
+        axios.post("https://social-media-mern-three.vercel.app/api/addcomment",{username,postId,comment,modDate})
     .then((e)=>{
       console.log("post  added successfully");
       alert(e.data)
@@ -30,7 +30,7 @@ const Comment = () => {
 
     // useEffect(()=>{
         let postId = localStorage.getItem('postId')
-        axios.post("http://localhost:3000/api/getcomment",{postId})
+        axios.post("https://social-media-mern-three.vercel.app/api/getcomment",{postId})
         .then((e)=>{
             // console.log(e.data)
             setCommentData(e.data)

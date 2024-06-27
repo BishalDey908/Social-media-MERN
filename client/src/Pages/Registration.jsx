@@ -23,7 +23,7 @@ const Registration = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("http://localhost:3000/api/reg",{username,email,password})
+        axios.post("https://social-media-mern-three.vercel.app/api/reg",{username,email,password})
         .then((e)=>{
             if(e.data==="User created successfully!"){
                 alert(e.data);
