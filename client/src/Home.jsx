@@ -69,7 +69,7 @@ const Home = () => {
   const handleLike = async (elem) => {
     console.log(elem._id)
     try {
-      const response = await axios.post(`http://localhost:3000/api/${elem._id}/like`,{username});
+      const response = await axios.post(`https://social-media-mern-three.vercel.app/api/${elem._id}/like`,{username});
       setLikes(response.data.likes);
       console.log(response)
       if(response.data==="You have already liked this post")
@@ -94,7 +94,7 @@ const Home = () => {
 
   const handleSave = (elem) =>{
     let savePostUserName = localStorage.getItem("username")
-    axios.post("http://localhost:3000/api/saved",{elem,savePostUserName})
+    axios.post("https://social-media-mern-three.vercel.app/api/saved",{elem,savePostUserName})
     .then((res)=>{
       console.log("post saved")
       alert(res.data)
@@ -120,7 +120,7 @@ const Home = () => {
     let modDate = elem.date
     console.log("this is image from share",img)
 
-    axios.post("http://localhost:3000/api/sharePost",{img,postname,username,modDate,userPic,sharedUser,sharedTime})
+    axios.post("https://social-media-mern-three.vercel.app/api/sharePost",{img,postname,username,modDate,userPic,sharedUser,sharedTime})
     .then(()=>{
       alert("POST shared SUCCESS")
       // console.log(cookies)
