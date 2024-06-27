@@ -26,6 +26,10 @@ app.use(cors({
   credentials: true,
 }))
 
+app.get("/",(req,res)=>{
+  res.send("hello")
+})
+
 // ----------------------------------------------------post storage setting
 const storage = multer.diskStorage({
   destination: (req,file,cb) =>{
