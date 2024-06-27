@@ -173,7 +173,7 @@ const Profile = () => {
         </div>
         <div className=' h-96 overflow-y-auto'>
         <hr />
-          {/* checktypeArray(friendList) && */}
+          
         {
           friendList.map((item, index) => (
             <div key={index} >
